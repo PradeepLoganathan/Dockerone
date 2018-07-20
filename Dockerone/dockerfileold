@@ -1,0 +1,19 @@
+﻿#layer 1
+FROM microsoft/dotnet:2.0-sdk
+WORKDIR /app
+
+MAINTAINER Pradeep Loganathan<pradeep@pradeeploganathan.com>
+
+#layer 2
+COPY *.csproj ./
+
+#layer 3
+RUN dotnet restore
+
+#layer 4
+COPY . ./
+#layer 5
+RUN dotnet publish -c Release -o out
+
+ENTRYPOINT ["dotnet", "out/Dockerone.dll"]
+
